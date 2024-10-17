@@ -1,0 +1,33 @@
+/* DINCA Alexandra-Cristina - 311CD*/
+
+main.c: 
+    Task1:
+        Algoritmul incepe prin alocarea memoriei pentru o matrice a locatiilor(folosita pentru codarea numelor) si un graf neorientat al orasului. Denumirile sunt adaugate in matrice in acelasi timp cu formarea grafului: luam doua zone, verificam daca exista sau nu in matrice; daca vreuna nu exista, o adaugam, iar apoi, luandu-le codificarile numerice, adaugam muchia in lista de adiacenta a grafului.
+         
+        Urmeaza apoi determinarea zonelor despartite de catre rauri. Pentru asta, parcurgem graful folosind BFS, marcam cu 1 locatiile vizitate, iar apoi refacem BFS incepand de la un alt nod nevizitat. Acest procedeu se continua pana sunt vizitate toate nodurile.
+
+        In final, pentru determinarea drumurilor de cost minim, aplicam algoritmul lui Prim in aceeasi maniera ca BFS; pornim de la un nod nevizitat, calculam costul, refacem procedeul de la urmatorul nod nevizitat. Vectorul este sortat folosind qsort.
+    
+    Task2:
+        Similar Taskului 1, creem matricea locatiilor, graful, plus un vector ce retine adancimile nodurilor. Astfel, putem initializa campul de score prezent in structura nodurilor unui graf orientat.
+
+        Apoi, folosind un simplu algoritm Dijkstra, nemodificat, vedem daca exista un drum intre Insula si Corabie(si inapoi). In caz afirmativ, apelam functia DijkstraPath, care calculeaza drumul optim de la Insula la Corabie pe baza scorurilor, si returneaza greutatea maxima pe care o poate avea comoara. 
+        
+        La sfarsit, comparam adancimile atat la venire cat si la plecare si alegem adancimea minima, pe care o printam, alaturi de numarul de drumuri necesar capturarii intregii comori.
+
+dijkstra.h:
+    Dijkstra: o implementare de baza a algoritmului, e folosita pentru a calcula distanta dintre Corabie si Insula si invers. Daca rezoltatul este INT_MAX, inseamna ca nu exista o cale valida.
+
+    DijkstraPath: aceasta este implementarea extinsa a algoritmului. Ea se foloseste de campul score al nodurilor din graf pentru a determina drumul cu cel mai mic scor. Apoi se construieste un Path de tip lista, prin parcurgerea vectorului de parinti incepand de la destinatie catre sursa. Pentru calcului greutatii maxime, verificam depth-ul fiecarui nod din Path(verificam de fiecare data depth-ul nodului urmator, astfel incat sa evitam verificarea adancimii capetelor) si extragem minimul, pe care il returnam.
+
+graph.h: colectie de structuri si functii caracteristice grafului neorientat.
+
+bfs.h: algoritmul de baza pentru parcurgerea in latime a unui graf neorientat, folosind implementarea de la laborator. Incepand de la nodul s(start), adaugam intr-un queue nodurile sale adiacente, iar apoi, extragandu-le pe rand, adaugam in aceeasi coada nodurile adiacente cu nodul extras.
+
+minheap.h: colectie de structuri si functii caracteristice unui minheap; in fisier sunt incluse atat coduri din laborator, cat si codurile modificate pentru un minheap care primeste un cost de tip float(scorul).
+
+orientedgraph.h: colectie de structuri si functii caracteristice grafului orientat
+
+prim.h: contine implementarea algorimului lui Prim, cu o mica modificare: contorizam nodurile vizitate, astfel incat sa putem calcula la final distanta drumului final
+
+queue.h: colectie de structuri si functii caracteristice cozii
